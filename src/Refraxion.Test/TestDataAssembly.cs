@@ -15,14 +15,10 @@ namespace Refraxion.Test
         [TestMethod]
         public void TestMethod1()
         {
-            Compiler compiler = new Compiler();
             string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            compiler.InputAssemblyPaths.Add(Path.Combine(dir, "Refraxion.Test.Data.dll"));
-            RxProjectInfo projectInfo = compiler.Compile();
-
-
-            projectInfo.Build(compiler);
-            projectInfo.Write(compiler);
+            ModelBuilder modelBuilder = new ModelBuilder(Path.Combine(dir, "Refraxion.Test.Data.dll"));
+            RxProjectInfo projectInfo = modelBuilder.BuildProject();
+            ModelBuilder.WriteProjectXml(projectInfo, modelBuilder.OutputPath);
         }
     }
 }

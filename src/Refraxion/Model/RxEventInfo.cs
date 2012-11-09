@@ -5,5 +5,6 @@ namespace Refraxion.Model
 {
     public partial class RxEventInfo
     {
+
     }
 }

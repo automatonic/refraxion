@@ -7,7 +7,7 @@ namespace Refraxion.Model
 {
     public partial class RxNamespaceInfo
     {
-        [XmlIgnore]
-        public RxAssemblyInfo Assembly { get; private set; }
+        //[XmlIgnore]
+        //internal RxAssemblyInfo Assembly { get; set; }
     }
 }

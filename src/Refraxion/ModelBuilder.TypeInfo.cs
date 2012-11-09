@@ -4,121 +4,96 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Refraxion.Model;
 
 namespace Refraxion
 {
-    /// <summary>
-    /// A task that generates google code wiki pages for types with XmlDocumentation
-    /// </summary>
-    public partial class Compiler
+    public partial class ModelBuilder
     {
-        [XmlIgnore]
-        public Type type;
-        [XmlIgnore]
-        public Type explicitInterfaceType;
-        [XmlIgnore]
-        public RxAssemblyInfo Assembly;
-        [XmlIgnore]
-        public List<RxTypeMemberInfo> members = new List<RxTypeMemberInfo>();
-
         /// <summary>
         /// Builds the type.
         /// </summary>
         /// <param name="typeElement">The type element.</param>
         /// <param name="xid">The id.</param>
         /// <returns></returns>
-        public static RxTypeInfo Build(Compiler context, RxAssemblyInfo assembly, Type type, XElement typeElement, string xid)
+        RxTypeInfo Build(Type type, XElement typeElement, string xid)
         {
-            RxTypeInfo instance = new RxTypeInfo();
-            instance.name = type.Name;
-            instance.Assembly = assembly;
+            RxTypeInfo info = new RxTypeInfo();
+            info.name = type.Name;
+
             //Fill common parameters
-            instance.id = xid;
-            instance.caption = type.Name;
-            instance.@namespace = type.Namespace;
-            instance.type = type;
-            instance.isPublic = type.IsPublic;
+            info.id = xid;
+            info.caption = type.Name;
+            info.@namespace = type.Namespace;
+            info.Type = type;
+            info.IsPublic = type.IsPublic;
 
-            if (typeElement != null)
-                BuildComments(context, typeElement);
+            BuildComments(info, typeElement);
 
-            instance.isNested = type.IsNested;
-            instance.isSealed = type.IsSealed;
-            instance.isAbstract = type.IsAbstract;
-            var fields = BuildXFields(context, instance.Assembly, type, typeElement).ToList();
-            fields.ForEach(field => instance.Assembly.Project.AddMember(field));
-            instance.field = fields.ToArray();
-            instance.property = instance.BuildProperties(context, type, typeElement).ToArray();
-            instance.method = type
-                .GetProperties(BindingFlags.Public | BindingFlags.Static)
-                .Select(propertyInfo => 
-                {
-                    string xcid = propertyInfo.ToXmlCommentID();
-                    XElement commentElement = assembly.GetCommentElement(context, xcid);
-                    RxPropertyInfo info = RxPropertyInfo.Build(context, this, propertyInfo, commentElement, xcid);
-                    assembly.Project.AddMember(info);
-                    return info;
-                })
-                
-                instance.BuildMethods(context, type, typeElement).ToArray();
-            instance.@event = instance.BuildEvents(context, type, typeElement).ToArray();
+            info.isNested = type.IsNested;
+            info.isSealed = type.IsSealed;
+            info.isAbstract = type.IsAbstract;
+
+            info.field = BuildTypeFields(info, type, typeElement).ToArray();
+            info.property = BuildTypeProperties(info, type, typeElement).ToArray();
+            info.method = BuildTypeMethods(info, type, typeElement).ToArray();
+            info.@event = BuildTypeEvents(info, type, typeElement).ToArray();
 
             if (type.IsNested)
             {
-                instance.caption = string.Concat(type.DeclaringType.Name, ".", instance.caption);
+                info.caption = string.Concat(type.DeclaringType.Name, ".", info.caption);
             }
+            return info;
         }
 
-
-        public static IEnumerable<RxFieldInfo> BuildXFields(Compiler context, RxAssemblyInfo assembly, Type type, XElement typeElement)
+        IEnumerable<RxFieldInfo> BuildTypeFields(RxTypeInfo parent, Type type, XElement typeElement)
         {
             foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
             {
                 if (!fieldInfo.IsPublic)
                     continue;
                 string xid = fieldInfo.ToXmlCommentID();
-                XElement commentElement = assembly.GetCommentElement(context, xid);
-                RxFieldInfo info = RxFieldInfo.Build(context, this, fieldInfo, commentElement, xid);
+                XElement commentElement = GetCommentElement(xid);
+                RxFieldInfo info = BuildTypeField(parent, fieldInfo, commentElement, xid);
+                AddMember(info);
                 yield return info;
             }
         }
 
-        public static IEnumerable<RxMethodInfo> BuildMethods(Compiler context, Type type, XElement typeElement)
+        IEnumerable<RxMethodInfo> BuildTypeMethods(RxTypeInfo parent, Type type, XElement typeElement)
         {
             foreach (MethodInfo methodInfo in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
                 if (!methodInfo.IsPublic)
                     continue;
                 string xid = methodInfo.ToXmlCommentID();
-                XElement commentElement = Assembly.GetCommentElement(context, xid);
-                RxMethodInfo info = RxMethodInfo.Build(context, this, methodInfo, commentElement, xid);
-                Assembly.Project.AddMember(info);
+                XElement commentElement = GetCommentElement(xid);
+                RxMethodInfo info = BuildTypeMethod(parent, methodInfo, commentElement, xid);
+                AddMember(info);
                 yield return info;
             }
         }
 
-        public IEnumerable<RxEventInfo> BuildEvents(Compiler context, Type type, XElement typeElement)
+        IEnumerable<RxEventInfo> BuildTypeEvents(RxTypeInfo parent, Type type, XElement typeElement)
         {
             foreach (EventInfo eventInfo in type.GetEvents(BindingFlags.Public | BindingFlags.Static))
             {
                 string xid = eventInfo.ToXmlCommentID();
-                XElement commentElement = Assembly.GetCommentElement(context, xid);
-                RxEventInfo info = RxEventInfo.Build(context, this, eventInfo, commentElement, xid);
-                Assembly.Project.AddMember(info);
+                XElement commentElement = GetCommentElement(xid);
+                RxEventInfo info = BuildTypeEvent(parent, eventInfo, commentElement, xid);
+                AddMember(info);
                 yield return info;
             }
         }
 
-        public IEnumerable<RxPropertyInfo> BuildProperties(Compiler context, Type type, XElement typeElement)
+        IEnumerable<RxPropertyInfo> BuildTypeProperties(RxTypeInfo parent, Type type, XElement typeElement)
         {
             foreach (PropertyInfo propertyInfo in type.GetProperties(BindingFlags.Public | BindingFlags.Static))
             {
-                
+                string xid = propertyInfo.ToXmlCommentID();
+                XElement commentElement = GetCommentElement(xid);
+                RxPropertyInfo info = Build(parent, propertyInfo, commentElement, xid);
+                AddMember(info);
                 yield return info;
             }
         }
@@ -126,7 +101,7 @@ namespace Refraxion
 
 
 
-        //public static void ParseMethodParameters(string parameters, out List<Type> paramTypes, out ParameterModifier parameterModifier)
+        //void ParseMethodParameters(string parameters, out List<Type> paramTypes, out ParameterModifier parameterModifier)
         //{
         //    paramTypes = new List<Type>();
 
@@ -180,7 +155,7 @@ namespace Refraxion
         //    }
         //}
 
-        private static Type ParseGenericTypeMethodParameter(Type parentType, string typeName)
+        private Type ParseGenericTypeMethodParameter(Type parentType, string typeName)
         {
             string genericName = typeName;
             bool buildArray = typeName.EndsWith("[]");
@@ -202,7 +177,7 @@ namespace Refraxion
 
 
 
-        public static string MangleGenericTypeNames(string typeName)
+        string MangleGenericTypeNames(string typeName)
         {
             int firstCurly = typeName.IndexOf("{");
             if (firstCurly >= 0)
@@ -235,11 +210,11 @@ namespace Refraxion
         }
     }
 
-    public class GenericArgumentPlaceholderHost<__T0, __T1, __T2, __T3, __T4, __T5, __T6, __T7, __T8, __T9, __T10, __T11, __T12, __T13>
+    partial class GenericArgumentPlaceholderHost<__T0, __T1, __T2, __T3, __T4, __T5, __T6, __T7, __T8, __T9, __T10, __T11, __T12, __T13>
     {
     }
 
-    public static class XTypeExtensions
+    partial class XTypeExtensions
     {
 
 

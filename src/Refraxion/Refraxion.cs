@@ -26,6 +26,8 @@ namespace Refraxion.Model {
         
         private RxAssemblyInfo[] assemblyField;
         
+        private RxNamespaceInfo[] namespaceField;
+        
         private string versionField;
         
         /// <remarks/>
@@ -36,6 +38,17 @@ namespace Refraxion.Model {
             }
             set {
                 this.assemblyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("namespace")]
+        public RxNamespaceInfo[] @namespace {
+            get {
+                return this.namespaceField;
+            }
+            set {
+                this.namespaceField = value;
             }
         }
         
@@ -59,7 +72,7 @@ namespace Refraxion.Model {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
     public partial class RxAssemblyInfo : RxMemberInfo {
         
-        private RxNamespaceInfo[] namespaceField;
+        private RxModuleInfo[] moduleField;
         
         private string versionField;
         
@@ -68,13 +81,13 @@ namespace Refraxion.Model {
         private string cultureInfoField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("namespace")]
-        public RxNamespaceInfo[] @namespace {
+        [System.Xml.Serialization.XmlElementAttribute("module")]
+        public RxModuleInfo[] module {
             get {
-                return this.namespaceField;
+                return this.moduleField;
             }
             set {
-                this.namespaceField = value;
+                this.moduleField = value;
             }
         }
         
@@ -118,18 +131,1390 @@ namespace Refraxion.Model {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxNamespaceInfo : RxMemberInfo {
+    public partial class RxModuleInfo : RxMemberInfo {
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxTypeMemberInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxPropertyInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxEventInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxMethodInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxFieldInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxTypeInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxNamespaceInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxModuleInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxAssemblyInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxProjectInfo))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public abstract partial class RxMemberInfo {
         
-        private RxTypeInfo[] typeField;
+        private RxMemberInfoComments commentsField;
+        
+        private bool isConstructorField;
+        
+        private bool isConstructorFieldSpecified;
+        
+        private bool isCustomField;
+        
+        private bool isCustomFieldSpecified;
+        
+        private bool isEventField;
+        
+        private bool isEventFieldSpecified;
+        
+        private bool isFieldField;
+        
+        private bool isFieldFieldSpecified;
+        
+        private bool isMethodField;
+        
+        private bool isMethodFieldSpecified;
+        
+        private bool isNestedTypeField;
+        
+        private bool isNestedTypeFieldSpecified;
+        
+        private bool isPropertyField;
+        
+        private bool isPropertyFieldSpecified;
+        
+        private bool isTypeField;
+        
+        private bool isTypeFieldSpecified;
+        
+        private string declaringTypeRefField;
+        
+        private string idField;
+        
+        private string captionField;
+        
+        private string nameField;
+        
+        private string absoluteUriField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("type")]
-        public RxTypeInfo[] type {
+        public RxMemberInfoComments comments {
             get {
-                return this.typeField;
+                return this.commentsField;
             }
             set {
-                this.typeField = value;
+                this.commentsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isConstructor {
+            get {
+                return this.isConstructorField;
+            }
+            set {
+                this.isConstructorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isConstructorSpecified {
+            get {
+                return this.isConstructorFieldSpecified;
+            }
+            set {
+                this.isConstructorFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isCustom {
+            get {
+                return this.isCustomField;
+            }
+            set {
+                this.isCustomField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isCustomSpecified {
+            get {
+                return this.isCustomFieldSpecified;
+            }
+            set {
+                this.isCustomFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isEvent {
+            get {
+                return this.isEventField;
+            }
+            set {
+                this.isEventField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isEventSpecified {
+            get {
+                return this.isEventFieldSpecified;
+            }
+            set {
+                this.isEventFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isField {
+            get {
+                return this.isFieldField;
+            }
+            set {
+                this.isFieldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isFieldSpecified {
+            get {
+                return this.isFieldFieldSpecified;
+            }
+            set {
+                this.isFieldFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isMethod {
+            get {
+                return this.isMethodField;
+            }
+            set {
+                this.isMethodField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isMethodSpecified {
+            get {
+                return this.isMethodFieldSpecified;
+            }
+            set {
+                this.isMethodFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isNestedType {
+            get {
+                return this.isNestedTypeField;
+            }
+            set {
+                this.isNestedTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isNestedTypeSpecified {
+            get {
+                return this.isNestedTypeFieldSpecified;
+            }
+            set {
+                this.isNestedTypeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isProperty {
+            get {
+                return this.isPropertyField;
+            }
+            set {
+                this.isPropertyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isPropertySpecified {
+            get {
+                return this.isPropertyFieldSpecified;
+            }
+            set {
+                this.isPropertyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isType {
+            get {
+                return this.isTypeField;
+            }
+            set {
+                this.isTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isTypeSpecified {
+            get {
+                return this.isTypeFieldSpecified;
+            }
+            set {
+                this.isTypeFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string declaringTypeRef {
+            get {
+                return this.declaringTypeRefField;
+            }
+            set {
+                this.declaringTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string caption {
+            get {
+                return this.captionField;
+            }
+            set {
+                this.captionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string absoluteUri {
+            get {
+                return this.absoluteUriField;
+            }
+            set {
+                this.absoluteUriField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxMemberInfoComments {
+        
+        private System.Xml.XmlNode[] anyField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlNode[] Any {
+            get {
+                return this.anyField;
+            }
+            set {
+                this.anyField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxTypeInfoParameter {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxParameterInfo {
+        
+        private RxMemberInfoRef[] parameterTypeRefField;
+        
+        private RxMemberInfoRef[] memberRefField;
+        
+        private string defaultValueField;
+        
+        private bool isInField;
+        
+        private bool isInFieldSpecified;
+        
+        private bool isLcidField;
+        
+        private bool isLcidFieldSpecified;
+        
+        private bool isOptionalField;
+        
+        private bool isOptionalFieldSpecified;
+        
+        private bool isOutField;
+        
+        private bool isOutFieldSpecified;
+        
+        private string isRetValField;
+        
+        private string nameField;
+        
+        private int positionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("parameterTypeRef")]
+        public RxMemberInfoRef[] parameterTypeRef {
+            get {
+                return this.parameterTypeRefField;
+            }
+            set {
+                this.parameterTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("memberRef")]
+        public RxMemberInfoRef[] memberRef {
+            get {
+                return this.memberRefField;
+            }
+            set {
+                this.memberRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string defaultValue {
+            get {
+                return this.defaultValueField;
+            }
+            set {
+                this.defaultValueField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isIn {
+            get {
+                return this.isInField;
+            }
+            set {
+                this.isInField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isInSpecified {
+            get {
+                return this.isInFieldSpecified;
+            }
+            set {
+                this.isInFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isLcid {
+            get {
+                return this.isLcidField;
+            }
+            set {
+                this.isLcidField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isLcidSpecified {
+            get {
+                return this.isLcidFieldSpecified;
+            }
+            set {
+                this.isLcidFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isOptional {
+            get {
+                return this.isOptionalField;
+            }
+            set {
+                this.isOptionalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isOptionalSpecified {
+            get {
+                return this.isOptionalFieldSpecified;
+            }
+            set {
+                this.isOptionalFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isOut {
+            get {
+                return this.isOutField;
+            }
+            set {
+                this.isOutField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isOutSpecified {
+            get {
+                return this.isOutFieldSpecified;
+            }
+            set {
+                this.isOutFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string isRetVal {
+            get {
+                return this.isRetValField;
+            }
+            set {
+                this.isRetValField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public int position {
+            get {
+                return this.positionField;
+            }
+            set {
+                this.positionField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxMemberInfoRef {
+        
+        private string crefField;
+        
+        private string captionField;
+        
+        private string absoluteUriField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string cref {
+            get {
+                return this.crefField;
+            }
+            set {
+                this.crefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string caption {
+            get {
+                return this.captionField;
+            }
+            set {
+                this.captionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string absoluteUri {
+            get {
+                return this.absoluteUriField;
+            }
+            set {
+                this.absoluteUriField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxPropertyInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxEventInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxMethodInfo))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxFieldInfo))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public abstract partial class RxTypeMemberInfo : RxMemberInfo {
+        
+        private string relativeUriField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string relativeUri {
+            get {
+                return this.relativeUriField;
+            }
+            set {
+                this.relativeUriField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxPropertyInfo : RxTypeMemberInfo {
+        
+        private RxMemberInfoRef propertyTypeRefField;
+        
+        private RxParameterInfo[] indexParameterField;
+        
+        private bool isSpecialNameField;
+        
+        private bool isSpecialNameFieldSpecified;
+        
+        private bool canReadField;
+        
+        private bool canReadFieldSpecified;
+        
+        private bool canWriteField;
+        
+        private bool canWriteFieldSpecified;
+        
+        /// <remarks/>
+        public RxMemberInfoRef propertyTypeRef {
+            get {
+                return this.propertyTypeRefField;
+            }
+            set {
+                this.propertyTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("indexParameter")]
+        public RxParameterInfo[] indexParameter {
+            get {
+                return this.indexParameterField;
+            }
+            set {
+                this.indexParameterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isSpecialName {
+            get {
+                return this.isSpecialNameField;
+            }
+            set {
+                this.isSpecialNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isSpecialNameSpecified {
+            get {
+                return this.isSpecialNameFieldSpecified;
+            }
+            set {
+                this.isSpecialNameFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool canRead {
+            get {
+                return this.canReadField;
+            }
+            set {
+                this.canReadField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool canReadSpecified {
+            get {
+                return this.canReadFieldSpecified;
+            }
+            set {
+                this.canReadFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool canWrite {
+            get {
+                return this.canWriteField;
+            }
+            set {
+                this.canWriteField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool canWriteSpecified {
+            get {
+                return this.canWriteFieldSpecified;
+            }
+            set {
+                this.canWriteFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxEventInfo : RxTypeMemberInfo {
+        
+        private RxMemberInfoRef eventHandlerTypeRefField;
+        
+        private bool isMulticastField;
+        
+        private bool isMulticastFieldSpecified;
+        
+        private bool isSpecialNameField;
+        
+        private bool isSpecialNameFieldSpecified;
+        
+        /// <remarks/>
+        public RxMemberInfoRef eventHandlerTypeRef {
+            get {
+                return this.eventHandlerTypeRefField;
+            }
+            set {
+                this.eventHandlerTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isMulticast {
+            get {
+                return this.isMulticastField;
+            }
+            set {
+                this.isMulticastField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isMulticastSpecified {
+            get {
+                return this.isMulticastFieldSpecified;
+            }
+            set {
+                this.isMulticastFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isSpecialName {
+            get {
+                return this.isSpecialNameField;
+            }
+            set {
+                this.isSpecialNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isSpecialNameSpecified {
+            get {
+                return this.isSpecialNameFieldSpecified;
+            }
+            set {
+                this.isSpecialNameFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxMethodInfo : RxTypeMemberInfo {
+        
+        private RxMemberInfoRef baseField;
+        
+        private RxMemberInfoRef extensionForTypeRefField;
+        
+        private RxMemberInfoRef returnTypeRefField;
+        
+        private RxParameterInfo[] parameterField;
+        
+        private string callingConventionField;
+        
+        private bool isAbstractField;
+        
+        private bool isAbstractFieldSpecified;
+        
+        private bool isAssemblyField;
+        
+        private bool isAssemblyFieldSpecified;
+        
+        private bool isFamilyField;
+        
+        private bool isFamilyFieldSpecified;
+        
+        private bool isFinalField;
+        
+        private bool isFinalFieldSpecified;
+        
+        private bool isPrivateField;
+        
+        private bool isPrivateFieldSpecified;
+        
+        private bool isSpecialNameField;
+        
+        private bool isSpecialNameFieldSpecified;
+        
+        private bool isStaticField;
+        
+        private bool isStaticFieldSpecified;
+        
+        private bool isVirtualField;
+        
+        private bool isVirtualFieldSpecified;
+        
+        private bool isExtensionField;
+        
+        private bool isExtensionFieldSpecified;
+        
+        private bool isGenericMethodField;
+        
+        private bool isGenericMethodFieldSpecified;
+        
+        private bool isGenericMethodDefinitionField;
+        
+        private bool isGenericMethodDefinitionFieldSpecified;
+        
+        /// <remarks/>
+        public RxMemberInfoRef @base {
+            get {
+                return this.baseField;
+            }
+            set {
+                this.baseField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public RxMemberInfoRef extensionForTypeRef {
+            get {
+                return this.extensionForTypeRefField;
+            }
+            set {
+                this.extensionForTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public RxMemberInfoRef returnTypeRef {
+            get {
+                return this.returnTypeRefField;
+            }
+            set {
+                this.returnTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("parameter")]
+        public RxParameterInfo[] parameter {
+            get {
+                return this.parameterField;
+            }
+            set {
+                this.parameterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string callingConvention {
+            get {
+                return this.callingConventionField;
+            }
+            set {
+                this.callingConventionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isAbstract {
+            get {
+                return this.isAbstractField;
+            }
+            set {
+                this.isAbstractField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isAbstractSpecified {
+            get {
+                return this.isAbstractFieldSpecified;
+            }
+            set {
+                this.isAbstractFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isAssembly {
+            get {
+                return this.isAssemblyField;
+            }
+            set {
+                this.isAssemblyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isAssemblySpecified {
+            get {
+                return this.isAssemblyFieldSpecified;
+            }
+            set {
+                this.isAssemblyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isFamily {
+            get {
+                return this.isFamilyField;
+            }
+            set {
+                this.isFamilyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isFamilySpecified {
+            get {
+                return this.isFamilyFieldSpecified;
+            }
+            set {
+                this.isFamilyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isFinal {
+            get {
+                return this.isFinalField;
+            }
+            set {
+                this.isFinalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isFinalSpecified {
+            get {
+                return this.isFinalFieldSpecified;
+            }
+            set {
+                this.isFinalFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isPrivate {
+            get {
+                return this.isPrivateField;
+            }
+            set {
+                this.isPrivateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isPrivateSpecified {
+            get {
+                return this.isPrivateFieldSpecified;
+            }
+            set {
+                this.isPrivateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isSpecialName {
+            get {
+                return this.isSpecialNameField;
+            }
+            set {
+                this.isSpecialNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isSpecialNameSpecified {
+            get {
+                return this.isSpecialNameFieldSpecified;
+            }
+            set {
+                this.isSpecialNameFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isStatic {
+            get {
+                return this.isStaticField;
+            }
+            set {
+                this.isStaticField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isStaticSpecified {
+            get {
+                return this.isStaticFieldSpecified;
+            }
+            set {
+                this.isStaticFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isVirtual {
+            get {
+                return this.isVirtualField;
+            }
+            set {
+                this.isVirtualField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isVirtualSpecified {
+            get {
+                return this.isVirtualFieldSpecified;
+            }
+            set {
+                this.isVirtualFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isExtension {
+            get {
+                return this.isExtensionField;
+            }
+            set {
+                this.isExtensionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isExtensionSpecified {
+            get {
+                return this.isExtensionFieldSpecified;
+            }
+            set {
+                this.isExtensionFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isGenericMethod {
+            get {
+                return this.isGenericMethodField;
+            }
+            set {
+                this.isGenericMethodField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isGenericMethodSpecified {
+            get {
+                return this.isGenericMethodFieldSpecified;
+            }
+            set {
+                this.isGenericMethodFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isGenericMethodDefinition {
+            get {
+                return this.isGenericMethodDefinitionField;
+            }
+            set {
+                this.isGenericMethodDefinitionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isGenericMethodDefinitionSpecified {
+            get {
+                return this.isGenericMethodDefinitionFieldSpecified;
+            }
+            set {
+                this.isGenericMethodDefinitionFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
+    public partial class RxFieldInfo : RxTypeMemberInfo {
+        
+        private RxMemberInfoRef fieldTypeRefField;
+        
+        private bool isAssemblyField;
+        
+        private bool isAssemblyFieldSpecified;
+        
+        private bool isFamilyField;
+        
+        private bool isFamilyFieldSpecified;
+        
+        private bool isInitOnlyField;
+        
+        private bool isInitOnlyFieldSpecified;
+        
+        private bool isLiteralField;
+        
+        private bool isLiteralFieldSpecified;
+        
+        private bool isNotSerializedField;
+        
+        private bool isNotSerializedFieldSpecified;
+        
+        private bool isPrivateField;
+        
+        private bool isPrivateFieldSpecified;
+        
+        private bool isSpecialNameField;
+        
+        private bool isSpecialNameFieldSpecified;
+        
+        private bool isStaticField;
+        
+        private bool isStaticFieldSpecified;
+        
+        private string literalValueField;
+        
+        /// <remarks/>
+        public RxMemberInfoRef fieldTypeRef {
+            get {
+                return this.fieldTypeRefField;
+            }
+            set {
+                this.fieldTypeRefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isAssembly {
+            get {
+                return this.isAssemblyField;
+            }
+            set {
+                this.isAssemblyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isAssemblySpecified {
+            get {
+                return this.isAssemblyFieldSpecified;
+            }
+            set {
+                this.isAssemblyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isFamily {
+            get {
+                return this.isFamilyField;
+            }
+            set {
+                this.isFamilyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isFamilySpecified {
+            get {
+                return this.isFamilyFieldSpecified;
+            }
+            set {
+                this.isFamilyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isInitOnly {
+            get {
+                return this.isInitOnlyField;
+            }
+            set {
+                this.isInitOnlyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isInitOnlySpecified {
+            get {
+                return this.isInitOnlyFieldSpecified;
+            }
+            set {
+                this.isInitOnlyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isLiteral {
+            get {
+                return this.isLiteralField;
+            }
+            set {
+                this.isLiteralField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isLiteralSpecified {
+            get {
+                return this.isLiteralFieldSpecified;
+            }
+            set {
+                this.isLiteralFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isNotSerialized {
+            get {
+                return this.isNotSerializedField;
+            }
+            set {
+                this.isNotSerializedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isNotSerializedSpecified {
+            get {
+                return this.isNotSerializedFieldSpecified;
+            }
+            set {
+                this.isNotSerializedFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isPrivate {
+            get {
+                return this.isPrivateField;
+            }
+            set {
+                this.isPrivateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isPrivateSpecified {
+            get {
+                return this.isPrivateFieldSpecified;
+            }
+            set {
+                this.isPrivateFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isSpecialName {
+            get {
+                return this.isSpecialNameField;
+            }
+            set {
+                this.isSpecialNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isSpecialNameSpecified {
+            get {
+                return this.isSpecialNameFieldSpecified;
+            }
+            set {
+                this.isSpecialNameFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public bool isStatic {
+            get {
+                return this.isStaticField;
+            }
+            set {
+                this.isStaticField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isStaticSpecified {
+            get {
+                return this.isStaticFieldSpecified;
+            }
+            set {
+                this.isStaticFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string literalValue {
+            get {
+                return this.literalValueField;
+            }
+            set {
+                this.literalValueField = value;
             }
         }
     }
@@ -1119,1442 +2504,18 @@ namespace Refraxion.Model {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxMemberInfoRef {
+    public partial class RxNamespaceInfo : RxMemberInfo {
         
-        private string crefField;
+        private RxTypeInfo[] typeField;
         
-        private string captionField;
-        
-        private string absoluteUriField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string cref {
-            get {
-                return this.crefField;
-            }
-            set {
-                this.crefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string caption {
-            get {
-                return this.captionField;
-            }
-            set {
-                this.captionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string absoluteUri {
-            get {
-                return this.absoluteUriField;
-            }
-            set {
-                this.absoluteUriField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxTypeInfoParameter {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxParameterInfo {
-        
-        private RxMemberInfoRef[] parameterTypeRefField;
-        
-        private RxMemberInfoRef[] memberRefField;
-        
-        private string defaultValueField;
-        
-        private bool isInField;
-        
-        private bool isInFieldSpecified;
-        
-        private bool isLcidField;
-        
-        private bool isLcidFieldSpecified;
-        
-        private bool isOptionalField;
-        
-        private bool isOptionalFieldSpecified;
-        
-        private bool isOutField;
-        
-        private bool isOutFieldSpecified;
-        
-        private string isRetValField;
-        
-        private string nameField;
-        
-        private int positionField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parameterTypeRef")]
-        public RxMemberInfoRef[] parameterTypeRef {
-            get {
-                return this.parameterTypeRefField;
-            }
-            set {
-                this.parameterTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("memberRef")]
-        public RxMemberInfoRef[] memberRef {
-            get {
-                return this.memberRefField;
-            }
-            set {
-                this.memberRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string defaultValue {
-            get {
-                return this.defaultValueField;
-            }
-            set {
-                this.defaultValueField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isIn {
-            get {
-                return this.isInField;
-            }
-            set {
-                this.isInField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isInSpecified {
-            get {
-                return this.isInFieldSpecified;
-            }
-            set {
-                this.isInFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isLcid {
-            get {
-                return this.isLcidField;
-            }
-            set {
-                this.isLcidField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isLcidSpecified {
-            get {
-                return this.isLcidFieldSpecified;
-            }
-            set {
-                this.isLcidFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isOptional {
-            get {
-                return this.isOptionalField;
-            }
-            set {
-                this.isOptionalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isOptionalSpecified {
-            get {
-                return this.isOptionalFieldSpecified;
-            }
-            set {
-                this.isOptionalFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isOut {
-            get {
-                return this.isOutField;
-            }
-            set {
-                this.isOutField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isOutSpecified {
-            get {
-                return this.isOutFieldSpecified;
-            }
-            set {
-                this.isOutFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string isRetVal {
-            get {
-                return this.isRetValField;
-            }
-            set {
-                this.isRetValField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public int position {
-            get {
-                return this.positionField;
-            }
-            set {
-                this.positionField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxModuleInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxTypeMemberInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxPropertyInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxEventInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxMethodInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxFieldInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxTypeInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxNamespaceInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxAssemblyInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxProjectInfo))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public abstract partial class RxMemberInfo {
-        
-        private RxMemberInfoComments commentsField;
-        
-        private bool isConstructorField;
-        
-        private bool isConstructorFieldSpecified;
-        
-        private bool isCustomField;
-        
-        private bool isCustomFieldSpecified;
-        
-        private bool isEventField;
-        
-        private bool isEventFieldSpecified;
-        
-        private bool isFieldField;
-        
-        private bool isFieldFieldSpecified;
-        
-        private bool isMethodField;
-        
-        private bool isMethodFieldSpecified;
-        
-        private bool isNestedTypeField;
-        
-        private bool isNestedTypeFieldSpecified;
-        
-        private bool isPropertyField;
-        
-        private bool isPropertyFieldSpecified;
-        
-        private bool isTypeField;
-        
-        private bool isTypeFieldSpecified;
-        
-        private string declaringTypeRefField;
-        
-        private string idField;
-        
-        private string captionField;
-        
-        private string nameField;
-        
-        private string absoluteUriField;
-        
-        /// <remarks/>
-        public RxMemberInfoComments comments {
-            get {
-                return this.commentsField;
-            }
-            set {
-                this.commentsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isConstructor {
-            get {
-                return this.isConstructorField;
-            }
-            set {
-                this.isConstructorField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isConstructorSpecified {
-            get {
-                return this.isConstructorFieldSpecified;
-            }
-            set {
-                this.isConstructorFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isCustom {
-            get {
-                return this.isCustomField;
-            }
-            set {
-                this.isCustomField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isCustomSpecified {
-            get {
-                return this.isCustomFieldSpecified;
-            }
-            set {
-                this.isCustomFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isEvent {
-            get {
-                return this.isEventField;
-            }
-            set {
-                this.isEventField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isEventSpecified {
-            get {
-                return this.isEventFieldSpecified;
-            }
-            set {
-                this.isEventFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isField {
-            get {
-                return this.isFieldField;
-            }
-            set {
-                this.isFieldField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isFieldSpecified {
-            get {
-                return this.isFieldFieldSpecified;
-            }
-            set {
-                this.isFieldFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isMethod {
-            get {
-                return this.isMethodField;
-            }
-            set {
-                this.isMethodField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isMethodSpecified {
-            get {
-                return this.isMethodFieldSpecified;
-            }
-            set {
-                this.isMethodFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isNestedType {
-            get {
-                return this.isNestedTypeField;
-            }
-            set {
-                this.isNestedTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isNestedTypeSpecified {
-            get {
-                return this.isNestedTypeFieldSpecified;
-            }
-            set {
-                this.isNestedTypeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isProperty {
-            get {
-                return this.isPropertyField;
-            }
-            set {
-                this.isPropertyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isPropertySpecified {
-            get {
-                return this.isPropertyFieldSpecified;
-            }
-            set {
-                this.isPropertyFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isType {
-            get {
-                return this.isTypeField;
-            }
-            set {
-                this.isTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isTypeSpecified {
-            get {
-                return this.isTypeFieldSpecified;
-            }
-            set {
-                this.isTypeFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string declaringTypeRef {
-            get {
-                return this.declaringTypeRefField;
-            }
-            set {
-                this.declaringTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string caption {
-            get {
-                return this.captionField;
-            }
-            set {
-                this.captionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string absoluteUri {
-            get {
-                return this.absoluteUriField;
-            }
-            set {
-                this.absoluteUriField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxMemberInfoComments {
-        
-        private System.Xml.XmlNode[] anyField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        [System.Xml.Serialization.XmlAnyElementAttribute()]
-        public System.Xml.XmlNode[] Any {
-            get {
-                return this.anyField;
-            }
-            set {
-                this.anyField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxModuleInfo : RxMemberInfo {
-        
-        private RxNamespaceInfo[] namespaceField;
-        
-        private string versionField;
-        
-        private string fileNameField;
-        
-        private string cultureInfoField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("namespace")]
-        public RxNamespaceInfo[] @namespace {
-            get {
-                return this.namespaceField;
-            }
-            set {
-                this.namespaceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string fileName {
-            get {
-                return this.fileNameField;
-            }
-            set {
-                this.fileNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string cultureInfo {
-            get {
-                return this.cultureInfoField;
-            }
-            set {
-                this.cultureInfoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxPropertyInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxEventInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxMethodInfo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RxFieldInfo))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public abstract partial class RxTypeMemberInfo : RxMemberInfo {
-        
-        private string relativeUriField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string relativeUri {
-            get {
-                return this.relativeUriField;
-            }
-            set {
-                this.relativeUriField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxPropertyInfo : RxTypeMemberInfo {
-        
-        private RxMemberInfoRef propertyTypeRefField;
-        
-        private RxParameterInfo[] indexParameterField;
-        
-        private bool isSpecialNameField;
-        
-        private bool isSpecialNameFieldSpecified;
-        
-        private bool canReadField;
-        
-        private bool canReadFieldSpecified;
-        
-        private bool canWriteField;
-        
-        private bool canWriteFieldSpecified;
-        
-        /// <remarks/>
-        public RxMemberInfoRef propertyTypeRef {
-            get {
-                return this.propertyTypeRefField;
-            }
-            set {
-                this.propertyTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("indexParameter")]
-        public RxParameterInfo[] indexParameter {
-            get {
-                return this.indexParameterField;
-            }
-            set {
-                this.indexParameterField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isSpecialName {
-            get {
-                return this.isSpecialNameField;
-            }
-            set {
-                this.isSpecialNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isSpecialNameSpecified {
-            get {
-                return this.isSpecialNameFieldSpecified;
-            }
-            set {
-                this.isSpecialNameFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool canRead {
-            get {
-                return this.canReadField;
-            }
-            set {
-                this.canReadField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool canReadSpecified {
-            get {
-                return this.canReadFieldSpecified;
-            }
-            set {
-                this.canReadFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool canWrite {
-            get {
-                return this.canWriteField;
-            }
-            set {
-                this.canWriteField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool canWriteSpecified {
-            get {
-                return this.canWriteFieldSpecified;
-            }
-            set {
-                this.canWriteFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxEventInfo : RxTypeMemberInfo {
-        
-        private RxMemberInfoRef eventHandlerTypeRefField;
-        
-        private bool isMulticastField;
-        
-        private bool isMulticastFieldSpecified;
-        
-        private bool isSpecialNameField;
-        
-        private bool isSpecialNameFieldSpecified;
-        
-        /// <remarks/>
-        public RxMemberInfoRef eventHandlerTypeRef {
-            get {
-                return this.eventHandlerTypeRefField;
-            }
-            set {
-                this.eventHandlerTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isMulticast {
-            get {
-                return this.isMulticastField;
-            }
-            set {
-                this.isMulticastField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isMulticastSpecified {
-            get {
-                return this.isMulticastFieldSpecified;
-            }
-            set {
-                this.isMulticastFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isSpecialName {
-            get {
-                return this.isSpecialNameField;
-            }
-            set {
-                this.isSpecialNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isSpecialNameSpecified {
-            get {
-                return this.isSpecialNameFieldSpecified;
-            }
-            set {
-                this.isSpecialNameFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxMethodInfo : RxTypeMemberInfo {
-        
-        private RxMemberInfoRef baseField;
-        
-        private RxMemberInfoRef extensionForTypeRefField;
-        
-        private RxMemberInfoRef returnTypeRefField;
-        
-        private RxParameterInfo[] parameterField;
-        
-        private string callingConventionField;
-        
-        private bool isAbstractField;
-        
-        private bool isAbstractFieldSpecified;
-        
-        private bool isAssemblyField;
-        
-        private bool isAssemblyFieldSpecified;
-        
-        private bool isFamilyField;
-        
-        private bool isFamilyFieldSpecified;
-        
-        private bool isFinalField;
-        
-        private bool isFinalFieldSpecified;
-        
-        private bool isPrivateField;
-        
-        private bool isPrivateFieldSpecified;
-        
-        private bool isSpecialNameField;
-        
-        private bool isSpecialNameFieldSpecified;
-        
-        private bool isStaticField;
-        
-        private bool isStaticFieldSpecified;
-        
-        private bool isVirtualField;
-        
-        private bool isVirtualFieldSpecified;
-        
-        private bool isExtensionField;
-        
-        private bool isExtensionFieldSpecified;
-        
-        private bool isGenericMethodField;
-        
-        private bool isGenericMethodFieldSpecified;
-        
-        private bool isGenericMethodDefinitionField;
-        
-        private bool isGenericMethodDefinitionFieldSpecified;
-        
-        /// <remarks/>
-        public RxMemberInfoRef @base {
-            get {
-                return this.baseField;
-            }
-            set {
-                this.baseField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public RxMemberInfoRef extensionForTypeRef {
-            get {
-                return this.extensionForTypeRefField;
-            }
-            set {
-                this.extensionForTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public RxMemberInfoRef returnTypeRef {
-            get {
-                return this.returnTypeRefField;
-            }
-            set {
-                this.returnTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parameter")]
-        public RxParameterInfo[] parameter {
-            get {
-                return this.parameterField;
-            }
-            set {
-                this.parameterField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string callingConvention {
-            get {
-                return this.callingConventionField;
-            }
-            set {
-                this.callingConventionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isAbstract {
-            get {
-                return this.isAbstractField;
-            }
-            set {
-                this.isAbstractField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isAbstractSpecified {
-            get {
-                return this.isAbstractFieldSpecified;
-            }
-            set {
-                this.isAbstractFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isAssembly {
-            get {
-                return this.isAssemblyField;
-            }
-            set {
-                this.isAssemblyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isAssemblySpecified {
-            get {
-                return this.isAssemblyFieldSpecified;
-            }
-            set {
-                this.isAssemblyFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isFamily {
-            get {
-                return this.isFamilyField;
-            }
-            set {
-                this.isFamilyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isFamilySpecified {
-            get {
-                return this.isFamilyFieldSpecified;
-            }
-            set {
-                this.isFamilyFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isFinal {
-            get {
-                return this.isFinalField;
-            }
-            set {
-                this.isFinalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isFinalSpecified {
-            get {
-                return this.isFinalFieldSpecified;
-            }
-            set {
-                this.isFinalFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isPrivate {
-            get {
-                return this.isPrivateField;
-            }
-            set {
-                this.isPrivateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isPrivateSpecified {
-            get {
-                return this.isPrivateFieldSpecified;
-            }
-            set {
-                this.isPrivateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isSpecialName {
-            get {
-                return this.isSpecialNameField;
-            }
-            set {
-                this.isSpecialNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isSpecialNameSpecified {
-            get {
-                return this.isSpecialNameFieldSpecified;
-            }
-            set {
-                this.isSpecialNameFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isStatic {
-            get {
-                return this.isStaticField;
-            }
-            set {
-                this.isStaticField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isStaticSpecified {
-            get {
-                return this.isStaticFieldSpecified;
-            }
-            set {
-                this.isStaticFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isVirtual {
-            get {
-                return this.isVirtualField;
-            }
-            set {
-                this.isVirtualField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isVirtualSpecified {
-            get {
-                return this.isVirtualFieldSpecified;
-            }
-            set {
-                this.isVirtualFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isExtension {
-            get {
-                return this.isExtensionField;
-            }
-            set {
-                this.isExtensionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isExtensionSpecified {
-            get {
-                return this.isExtensionFieldSpecified;
-            }
-            set {
-                this.isExtensionFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isGenericMethod {
-            get {
-                return this.isGenericMethodField;
-            }
-            set {
-                this.isGenericMethodField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isGenericMethodSpecified {
-            get {
-                return this.isGenericMethodFieldSpecified;
-            }
-            set {
-                this.isGenericMethodFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isGenericMethodDefinition {
-            get {
-                return this.isGenericMethodDefinitionField;
-            }
-            set {
-                this.isGenericMethodDefinitionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isGenericMethodDefinitionSpecified {
-            get {
-                return this.isGenericMethodDefinitionFieldSpecified;
-            }
-            set {
-                this.isGenericMethodDefinitionFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://devfuel.com/Refraxion")]
-    public partial class RxFieldInfo : RxTypeMemberInfo {
-        
-        private RxMemberInfoRef fieldTypeRefField;
-        
-        private bool isAssemblyField;
-        
-        private bool isAssemblyFieldSpecified;
-        
-        private bool isFamilyField;
-        
-        private bool isFamilyFieldSpecified;
-        
-        private bool isInitOnlyField;
-        
-        private bool isInitOnlyFieldSpecified;
-        
-        private bool isLiteralField;
-        
-        private bool isLiteralFieldSpecified;
-        
-        private bool isNotSerializedField;
-        
-        private bool isNotSerializedFieldSpecified;
-        
-        private bool isPrivateField;
-        
-        private bool isPrivateFieldSpecified;
-        
-        private bool isSpecialNameField;
-        
-        private bool isSpecialNameFieldSpecified;
-        
-        private bool isStaticField;
-        
-        private bool isStaticFieldSpecified;
-        
-        private string literalValueField;
-        
-        /// <remarks/>
-        public RxMemberInfoRef fieldTypeRef {
-            get {
-                return this.fieldTypeRefField;
-            }
-            set {
-                this.fieldTypeRefField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isAssembly {
-            get {
-                return this.isAssemblyField;
-            }
-            set {
-                this.isAssemblyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isAssemblySpecified {
-            get {
-                return this.isAssemblyFieldSpecified;
-            }
-            set {
-                this.isAssemblyFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isFamily {
-            get {
-                return this.isFamilyField;
-            }
-            set {
-                this.isFamilyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isFamilySpecified {
-            get {
-                return this.isFamilyFieldSpecified;
-            }
-            set {
-                this.isFamilyFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isInitOnly {
-            get {
-                return this.isInitOnlyField;
-            }
-            set {
-                this.isInitOnlyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isInitOnlySpecified {
-            get {
-                return this.isInitOnlyFieldSpecified;
-            }
-            set {
-                this.isInitOnlyFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isLiteral {
-            get {
-                return this.isLiteralField;
-            }
-            set {
-                this.isLiteralField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isLiteralSpecified {
-            get {
-                return this.isLiteralFieldSpecified;
-            }
-            set {
-                this.isLiteralFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isNotSerialized {
-            get {
-                return this.isNotSerializedField;
-            }
-            set {
-                this.isNotSerializedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isNotSerializedSpecified {
-            get {
-                return this.isNotSerializedFieldSpecified;
-            }
-            set {
-                this.isNotSerializedFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isPrivate {
-            get {
-                return this.isPrivateField;
-            }
-            set {
-                this.isPrivateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isPrivateSpecified {
-            get {
-                return this.isPrivateFieldSpecified;
-            }
-            set {
-                this.isPrivateFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isSpecialName {
-            get {
-                return this.isSpecialNameField;
-            }
-            set {
-                this.isSpecialNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isSpecialNameSpecified {
-            get {
-                return this.isSpecialNameFieldSpecified;
-            }
-            set {
-                this.isSpecialNameFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public bool isStatic {
-            get {
-                return this.isStaticField;
-            }
-            set {
-                this.isStaticField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isStaticSpecified {
-            get {
-                return this.isStaticFieldSpecified;
-            }
-            set {
-                this.isStaticFieldSpecified = value;
-            }
-        }
-        
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public string literalValue {
+        [System.Xml.Serialization.XmlElementAttribute("type")]
+        public RxTypeInfo[] type {
             get {
-                return this.literalValueField;
+                return this.typeField;
             }
             set {
-                this.literalValueField = value;
+                this.typeField = value;
             }
         }
     }

@@ -7,6 +7,7 @@
       <xs:extension base="RxMemberInfo">
         <xs:sequence>
           <xs:element name="assembly" minOccurs="0" maxOccurs="unbounded" type="RxAssemblyInfo"/>
+          <xs:element name="namespace" minOccurs="0" maxOccurs="unbounded" type="RxNamespaceInfo"/>
         </xs:sequence>
         <xs:attribute name="version" type="xs:string" use="required"/>
       </xs:extension>
@@ -17,7 +18,7 @@
     <xs:complexContent>
       <xs:extension base="RxMemberInfo">
         <xs:sequence>
-          <xs:element name="namespace" minOccurs="0" maxOccurs="unbounded" type="RxNamespaceInfo"/>
+          <xs:element name="module" minOccurs="0" maxOccurs="unbounded" type="RxModuleInfo"/>
         </xs:sequence>
         <xs:attribute name="version" type="xs:string" use="required"/>
         <xs:attribute name="fileName" type="xs:string" use="required"/>
@@ -29,12 +30,6 @@
   <xs:complexType name="RxModuleInfo">
     <xs:complexContent>
       <xs:extension base="RxMemberInfo">
-        <xs:sequence>
-          <xs:element name="namespace" minOccurs="0" maxOccurs="unbounded" type="RxNamespaceInfo"/>
-        </xs:sequence>
-        <xs:attribute name="version" type="xs:string" use="required"/>
-        <xs:attribute name="fileName" type="xs:string" use="required"/>
-        <xs:attribute name="cultureInfo" type="xs:string" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

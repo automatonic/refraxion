@@ -6,11 +6,13 @@ namespace Refraxion.Model
     public partial class RxTypeMemberInfo
     {
         [XmlIgnore]
-        public Uri RelativeUri { get; private set; }
+        internal Uri RelativeUri { get; private set; }
         [XmlIgnore]
-        public string memberName;
+        internal string MemberName { get; set; }
         [XmlIgnore]
-        public string explicitInterface;
+        internal string ExplicitInterface { get; set; }
+        [XmlIgnore]
+        internal RxTypeInfo Parent { get; set; }
 
         public void SetUri(RxTypeInfo typeInfo, string relativeUri)
         {

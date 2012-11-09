@@ -10,15 +10,12 @@ namespace Refraxion.Model
     public partial class RxTypeInfo
     {
         [XmlIgnore]
-        public Type type;
+        internal Type Type;
         [XmlIgnore]
-        public Type explicitInterfaceType;
+        internal Type ExplicitInterfaceType;
         [XmlIgnore]
-        public RxAssemblyInfo Assembly;
-        [XmlIgnore]
-        public List<RxTypeMemberInfo> members = new List<RxTypeMemberInfo>();
-
-       
+        internal RxAssemblyInfo Parent;       
+      
 
         //public static void ParseMethodParameters(string parameters, out List<Type> paramTypes, out ParameterModifier parameterModifier)
         //{

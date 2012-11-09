@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultLog.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="ILog.cs" />
+    <Compile Include="AssemblyEqualityComparer.cs" />
     <Compile Include="Model\RxEventInfo.cs" />
     <Compile Include="Model\RxMethodInfo.cs" />
     <Compile Include="Model\RxFieldInfo.cs" />
@@ -50,23 +53,24 @@
     <Compile Include="Refraxion.cs">
       <DependentUpon>Refraxion.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Compiler.cs" />
+    <Compile Include="ModelBuilder.Public.cs" />
     <Compile Include="Model\RxAssemblyInfo.cs" />
     <Compile Include="Model\RxMemberInfo.cs" />
     <Compile Include="Model\RxNamespaceInfo.cs" />
     <Compile Include="Model\RxProjectInfo.cs" />
     <Compile Include="Model\RxTypeInfo.cs" />
     <Compile Include="Model\RxTypeMemberInfo.cs" />
-    <Compile Include="Compiler.RxAssemblyInfo.cs" />
-    <Compile Include="Compiler.RxEventInfo.cs" />
-    <Compile Include="Compiler.RxFieldInfo.cs" />
-    <Compile Include="Compiler.RxMemberInfo.cs" />
-    <Compile Include="Compiler.RxMethodInfo.cs" />
-    <Compile Include="Compiler.RxNamespaceInfo.cs" />
-    <Compile Include="Compiler.RxProjectInfo.cs" />
-    <Compile Include="Compiler.RxPropertyInfo.cs" />
-    <Compile Include="Compiler.RxTypeInfo.cs" />
-    <Compile Include="Compiler.RxTypeMemberInfo.cs" />
+    <Compile Include="ModelBuilder.AssemblyInfo.cs" />
+    <Compile Include="ModelBuilder.EventInfo.cs" />
+    <Compile Include="ModelBuilder.FieldInfo.cs" />
+    <Compile Include="ModelBuilder.MemberInfo.cs" />
+    <Compile Include="ModelBuilder.MethodInfo.cs" />
+    <Compile Include="ModelBuilder.NamespaceInfo.cs" />
+    <Compile Include="ModelBuilder.ProjectInfo.cs" />
+    <Compile Include="ModelBuilder.PropertyInfo.cs" />
+    <Compile Include="ModelBuilder.TypeInfo.cs" />
+    <Compile Include="ModelBuilder.TypeMemberInfo.cs" />
+    <Compile Include="RxUriParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Refraxion.xsd">

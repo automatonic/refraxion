@@ -5,6 +5,6 @@ namespace Refraxion.Model
 {
     public partial class RxPropertyInfo
     {
-
+        
     }
 }

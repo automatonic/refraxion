@@ -7,37 +7,37 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
+using Refraxion.Model;
 
 namespace Refraxion
 {
-    /// <summary>
-    /// A task that generates google code wiki pages for types with XmlDocumentation
-    /// </summary>
-    public partial class Compiler
+    public partial class ModelBuilder
     {
+        HashSet<Assembly> ReferencedAssemblies = new HashSet<Assembly>(new AssemblyEqualityComparer());
+        SortedDictionary<string, RxMemberInfo> MemberLookup = new SortedDictionary<string,RxMemberInfo>();
 
-        public RxProjectInfo()
+
+        protected IEnumerable<RxNamespaceInfo> BuildProjectNamespaces(RxProjectInfo info)
         {
-            this.id = "P:Project";
-            SetUri("P_Project");
-            Assemblies = new HashSet<RxAssemblyInfo>(new RxMemberInfo.EqualityComparer());
-            MemberLookup = new SortedDictionary<string, RxMemberInfo>();
-            ReferencedAssemblies = new HashSet<Assembly>(new AssemblyEqualityComparer());
+            ILookup<string, Type> typePartitions = info.assembly
+                .SelectMany(assembly => assembly.Assembly.GetExportedTypes())
+                .ToLookup(type => type.Namespace);
+            foreach (var typePartition in typePartitions)
+            {
+                RxNamespaceInfo @namespace = BuildProjectNamespace(info, typePartition.Key, typePartition);
+                AddMember(@namespace);
+                yield return @namespace;
+            }
         }
 
-        public void Build(Compiler context)
+        protected IEnumerable<RxAssemblyInfo> BuildProjectAssemblies(RxProjectInfo info)
         {
-            assembly = BuildAssemblies(context).ToArray();
-        }
-
-        protected IEnumerable<RxAssemblyInfo> BuildAssemblies(Compiler context)
-        {
-            foreach (string inputAssemblyPath in context.InputAssemblyPaths)
+            foreach (string inputAssemblyPath in InputAssemblyPaths)
             {
                 //Check for input assembly
                 if (!File.Exists(inputAssemblyPath))
                 {
-                    context.LogWarning("Skipping. Could not find Assembly: {0}", inputAssemblyPath);
+                    Log.LogWarning("Skipping. Could not find Assembly: {0}", inputAssemblyPath);
                     continue;
                 }
                 //Load the assembly
@@ -48,94 +48,23 @@ namespace Refraxion
 
                 if (!File.Exists(assemblyCommentsPath))
                 {
-                    context.LogWarning("Skipping: Could not find XML Documentation file: {0}", assemblyCommentsPath);
+                    Log.LogWarning("Skipping: Could not find XML Documentation file: {0}", assemblyCommentsPath);
                     continue;
                 }
 
-                //Default the output folder if needed
-                if (string.IsNullOrWhiteSpace(context.OutputFolder))
-                {
-                    context.LogNormal("Defaulting OutputFolder using assembly path");
-                    context.OutputFolder = Path.GetDirectoryName(assemblyCommentsPath);
-                }
-
-                if (File.Exists(context.OutputFolder))
-                    throw new Exception(string.Format("Destination Folder is invalid: {0}", context.OutputFolder));
-
-                try
-                {
-                    if (!Directory.Exists(context.OutputFolder))
-                    {
-                        context.LogNormal("Creating Output Folder");
-                        Directory.CreateDirectory(context.OutputFolder);
-                    }
-                }
-                catch (Exception x)
-                {
-                    throw new Exception("Destination Folder does not exist and cannot be created", x);
-                }
-
-                if (string.IsNullOrWhiteSpace(context.OutputPath))
-                {
-                    context.OutputPath = Path.Combine(context.OutputFolder, "project.rx");
-                }
-
                 //Build the assembly element
-                RxAssemblyInfo assemblyInfo = new RxAssemblyInfo();
-                assemblyInfo.Build(context, this, assembly, assemblyCommentsPath);
+                RxAssemblyInfo assemblyInfo = BuildProjectAssembly(info, assembly, assemblyCommentsPath);
+                AddMember(info);
                 yield return assemblyInfo;
             }
         }
 
-        public void Write(Compiler context)
-        {
-            //Create our own namespaces for the output
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-
-            //Add an empty namespace and empty value
-            ns.Add("", "");
-
-            XmlSerializer serializer = new XmlSerializer(typeof(RxProjectInfo));
-            using (TextWriter writer = new StreamWriter(context.OutputPath))
-            {
-                serializer.Serialize(writer, this, ns);
-            }
-        }
-
-        public void AppendAssembly(Compiler context, RxAssemblyInfo assembly)
-        {
-            Assemblies.Add(assembly);
-            ReferencedAssemblies.Add(assembly.InputAssembly);
-
-            foreach (AssemblyName referencedAssemblyName in assembly.InputAssembly.GetReferencedAssemblies())
-            {
-                if (!ReferencedAssemblies.Any(a => a.GetName().Equals(referencedAssemblyName)))
-                {
-                    try
-                    {
-                        ReferencedAssemblies.Add(Assembly.Load(referencedAssemblyName));
-                    }
-                    catch (FileNotFoundException x)
-                    {
-                        string dir = Path.GetDirectoryName(assembly.InputAssembly.Location);
-                        string assemblyPath = Path.Combine(dir, referencedAssemblyName.Name) + ".dll";
-                        if (File.Exists(assemblyPath))
-                        {
-                            ReferencedAssemblies.Add(Assembly.LoadFrom(assemblyPath));
-                        }
-                        else
-                            context.LogException(x);
-                    }
-                }
-            }
-        }
-
-        public bool TryGetMember(string id, out RxMemberInfo member)
+        bool TryGetMember(string id, out RxMemberInfo member)
         {
             return MemberLookup.TryGetValue(id, out member);
         }
 
-        public void AddMember(RxMemberInfo member)
+        void AddMember(RxMemberInfo member)
         {
             MemberLookup[member.id] = member;
         }
@@ -155,7 +84,7 @@ namespace Refraxion
             return null;
         }
 
-        public Type GetType(Compiler context, string typeName)
+        Type GetType(string typeName)
         {
             //Detect Generic Type so we can mangle the name
             string mangled = RxTypeInfo.MangleGenericTypeNames(typeName);
@@ -175,13 +104,13 @@ namespace Refraxion
                 {
                     if (!foundGeneric.ContainsGenericParameters)
                     {
-                        context.LogWarning("Expected an generic type with open parameters.\n\tGot: {0}", foundGeneric);
+                        Log.LogWarning("Expected an generic type with open parameters.\n\tGot: {0}", foundGeneric);
                     }
                     else
                     {
                         string parameters = mangled.Substring(bracketLoc + 1);
                         parameters = parameters.Substring(0, parameters.Length - 1);
-                        List<Type> typeParameters = ParseTypeParameters(context, foundGeneric, parameters).ToList();
+                        List<Type> typeParameters = ParseTypeParameters(foundGeneric, parameters).ToList();
                         if (!typeParameters.Any(t => t.IsGenericParameterPlaceholder()))
                         {
                             if (typeParameters.Count == foundGeneric.GetGenericArguments().Length)
@@ -190,7 +119,7 @@ namespace Refraxion
                                 if (foundType != null)
                                     return foundType;
                             }
-                            context.LogWarning("Unable to build from generic type\n\tGeneric Type: {0}\n\tType Parameters:\n\t{1}", foundGeneric, typeParameters);
+                            Log.LogWarning("Unable to build from generic type\n\tGeneric Type: {0}\n\tType Parameters:\n\t{1}", foundGeneric, typeParameters);
                         }
                         else
                             return foundGeneric;
@@ -199,12 +128,12 @@ namespace Refraxion
                 }
             }
 
-            context.LogWarning("Cannot locate type.\n\tName: {0}\n\tMangled: {1}\n\tGeneric Type: {2}", typeName, mangled, genericName);
+            Log.LogWarning("Cannot locate type.\n\tName: {0}\n\tMangled: {1}\n\tGeneric Type: {2}", typeName, mangled, genericName);
 
             return null;
         }
 
-        public IEnumerable<Type> ParseTypeParameters(Compiler context, Type genericBase, string parameters)
+        IEnumerable<Type> ParseTypeParameters(Type genericBase, string parameters)
         {
             string[] paramParts = parameters.CommaSplit();
 
@@ -216,14 +145,14 @@ namespace Refraxion
                     int pos;
                     if (!int.TryParse(paramPart.Substring(2), out pos))
                     {
-                        context.LogWarning("Failed to resolve type parameter's runtime type\n\tParameter: {0}", paramPart.Substring(2));
+                        Log.LogWarning("Failed to resolve type parameter's runtime type\n\tParameter: {0}", paramPart.Substring(2));
                         yield break;
                     }
                     Type foundArgument = typeof(GenericArgumentPlaceholderHost<,,,,,,,,,,,,,>).GetGenericArguments()[pos];
                     yield return foundArgument;
                     continue;
                 }
-                Type paramType = GetType(context, paramPart);
+                Type paramType = GetType(paramPart);
 
                 if (paramType != null)
                 {
@@ -231,14 +160,14 @@ namespace Refraxion
                 }
                 else
                 {
-                    context.LogWarning("Failed to resolve type parameter's runtime type\n\tParameter: {0}", paramPart);
+                    Log.LogWarning("Failed to resolve type parameter's runtime type\n\tParameter: {0}", paramPart);
                     yield break;
                 }
             }
         }
 
 
-        public void ResolveCrefs(string xapiPath)
+        void ResolveCrefs(string xapiPath)
         {
             XDocument source = XDocument.Load(xapiPath, LoadOptions.None);
             foreach (XElement element in source.XPathSelectElements("//*[@cref]"))
@@ -288,7 +217,7 @@ namespace Refraxion
             source.Save(xapiPath);
         }
 
-        public RxTypeInfo FindBuiltType(string id)
+        RxTypeInfo FindBuiltType(string id)
         {
             id = string.Concat("T:", id.Substring(2));
             int firstParen = id.IndexOf('(');
@@ -312,16 +241,30 @@ namespace Refraxion
             }
         }
 
-        public class AssemblyEqualityComparer : IEqualityComparer<Assembly>
+        void LoadReferencedAssemblies(RxAssemblyInfo assembly)
         {
-            public bool Equals(Assembly x, Assembly y)
-            {
-                return x.GetName().Equals(y.GetName());
-            }
+            ReferencedAssemblies.Add(assembly.Assembly);
 
-            public int GetHashCode(Assembly obj)
+            foreach (AssemblyName referencedAssemblyName in assembly.Assembly.GetReferencedAssemblies())
             {
-                return obj.GetName().GetHashCode();
+                if (!ReferencedAssemblies.Any(a => a.GetName().Equals(referencedAssemblyName)))
+                {
+                    try
+                    {
+                        ReferencedAssemblies.Add(Assembly.Load(referencedAssemblyName));
+                    }
+                    catch (FileNotFoundException x)
+                    {
+                        string dir = Path.GetDirectoryName(assembly.Assembly.Location);
+                        string assemblyPath = Path.Combine(dir, referencedAssemblyName.Name) + ".dll";
+                        if (File.Exists(assemblyPath))
+                        {
+                            ReferencedAssemblies.Add(Assembly.LoadFrom(assemblyPath));
+                        }
+                        else
+                            Log.LogException(x);
+                    }
+                }
             }
         }
     }

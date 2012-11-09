@@ -12,65 +12,17 @@ namespace Refraxion.Model
     public abstract partial class RxMemberInfo
     {
         [XmlIgnore]
-        public Uri AbsoluteUri { get; private set; }
+        internal Uri AbsoluteUri { get; private set; }
 
         [XmlIgnore]
-        public MemberInfo memberInfo
-        {
-            get;
-            set;
-        }
+        internal MemberInfo MemberInfo { get; set; }
 
         [XmlIgnore]
-        public bool isPublic;
+        internal bool IsPublic { get; set; }
 
         public override string ToString()
         {
-            return id;
-        }
-
-        protected void BuildFileComments(RxAssemblyInfo outputAssembly)
-        {
-            string inputDirectory = Path.GetDirectoryName(outputAssembly.Reflection.Location);
-            string path = Path.Combine(inputDirectory, this.id) + ".comments";
-            if (File.Exists(path))
-            {
-                BuildComments(File.ReadAllText(path));
-            }
-        }
-
-        protected static void BuildComments(Compiler context, XElement input)
-        {
-            if (input == null)
-            {
-                context.LogWarning("\"{0}\" had no comments.", id);
-                return;
-            }
-            BuildComments(input.Nodes().Aggregate("", (s, n) => n.ToString(SaveOptions.DisableFormatting)));
-        }
-
-        protected void BuildComments(string input)
-        {
-            comments = new RxMemberInfoComments();
-            XmlDocumentFragment fragment = _TempDocument.CreateDocumentFragment();
-            try
-            {
-                fragment.InnerXml = input;
-            }
-            catch (XmlException)
-            {
-                fragment.InnerXml = System.Security.SecurityElement.Escape(input);
-            }
-
-            List<XmlNode> nodes = fragment.ChildNodes.OfType<XmlNode>().Select(n => _TempDocument.ImportNode(n, true)).ToList();
-            comments.Any = nodes.ToArray();
-        }
-
-        static XmlDocument _TempDocument;
-        static RxMemberInfo()
-        {
-            _TempDocument = new XmlDocument();
-            _TempDocument.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\"?><Assembly xmlns=\"http://ghost-tasks.googlecode.com/Wiki/XmlDoc.xsd\"/>");
+            return String.Concat( id, " ", AbsoluteUri);
         }
 
         public class EqualityComparer : IEqualityComparer<RxMemberInfo>
@@ -92,15 +44,10 @@ namespace Refraxion.Model
             absoluteUri = AbsoluteUri.ToString();
         }
 
-        public void SetUri(Uri baseUri, string relativeUri)
+        protected void SetUri(Uri baseUri, string relativeUri)
         {
             AbsoluteUri = new Uri(baseUri, relativeUri);
             absoluteUri = AbsoluteUri.ToString();
-        }
-
-        public void SetUri(RxMemberInfo parentMemberInfo, string relativeUri)
-        {
-            SetUri(parentMemberInfo.AbsoluteUri, relativeUri);
         }
     }
 

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Refraxion" targetNamespace="http://devfuel.com/Refraxion" xmlns="http://devfuel.com/Refraxion" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="project" type="RxProjectInfo" />
+
+  <xs:complexType name="RxProjectInfo">
+    <xs:complexContent>
+      <xs:extension base="RxMemberInfo">
+        <xs:sequence>
+          <xs:element name="assembly" minOccurs="0" maxOccurs="unbounded" type="RxAssemblyInfo"/>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxAssemblyInfo">
+    <xs:complexContent>
+      <xs:extension base="RxMemberInfo">
+        <xs:sequence>
+          <xs:element name="namespace" minOccurs="0" maxOccurs="unbounded" type="RxNamespaceInfo"/>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:string" use="required"/>
+        <xs:attribute name="fileName" type="xs:string" use="required"/>
+        <xs:attribute name="cultureInfo" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxModuleInfo">
+    <xs:complexContent>
+      <xs:extension base="RxMemberInfo">
+        <xs:sequence>
+          <xs:element name="namespace" minOccurs="0" maxOccurs="unbounded" type="RxNamespaceInfo"/>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:string" use="required"/>
+        <xs:attribute name="fileName" type="xs:string" use="required"/>
+        <xs:attribute name="cultureInfo" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxNamespaceInfo">
+    <xs:complexContent>
+      <xs:extension base="RxMemberInfo">
+        <xs:sequence>
+          <xs:element name="type" minOccurs="0" maxOccurs="unbounded" type="RxTypeInfo"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxMemberInfo" abstract="true">
+    <xs:sequence>
+      <xs:element name="comments" minOccurs="0">
+        <xs:complexType mixed="true">
+          <xs:sequence>            
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+      <xs:attribute name="isConstructor" type="xs:boolean"/>
+      <xs:attribute name="isCustom" type="xs:boolean"/>
+      <xs:attribute name="isEvent" type="xs:boolean"/>
+      <xs:attribute name="isField" type="xs:boolean"/>
+      <xs:attribute name="isMethod" type="xs:boolean"/>
+      <xs:attribute name="isNestedType" type="xs:boolean"/>
+      <xs:attribute name="isProperty" type="xs:boolean"/>
+      <xs:attribute name="isType" type="xs:boolean"/>
+      <xs:attribute name="declaringTypeRef" type="xs:string"/>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="caption" type="xs:string" use="required"/>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="absoluteUri" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RxTypeMemberInfo" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="RxMemberInfo">
+          <xs:attribute name="relativeUri" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxMemberInfoRef">
+    <xs:attribute name="cref" use="required"/>
+    <xs:attribute name="caption" use="required"/>
+    <xs:attribute name="absoluteUri" use="required"/>
+  </xs:complexType>
+  
+  <xs:complexType name="RxFieldInfo">
+    <xs:complexContent>
+      <xs:extension base="RxTypeMemberInfo">
+        <xs:sequence>
+          <xs:element name="fieldTypeRef" type="RxMemberInfoRef" minOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="isAssembly" type="xs:boolean"/>
+        <xs:attribute name="isFamily" type="xs:boolean"/>
+        <xs:attribute name="isInitOnly" type="xs:boolean"/>
+        <xs:attribute name="isLiteral" type="xs:boolean"/>
+        <xs:attribute name="isNotSerialized" type="xs:boolean"/>
+        <xs:attribute name="isPrivate" type="xs:boolean"/>
+        <xs:attribute name="isSpecialName" type="xs:boolean"/>
+        <xs:attribute name="isStatic" type="xs:boolean"/>
+        <xs:attribute name="literalValue" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+  <xs:complexType name="RxMethodInfo">
+    <xs:complexContent>
+      <xs:extension base="RxTypeMemberInfo">
+        <xs:sequence>
+          <xs:element name="base" type="RxMemberInfoRef" minOccurs="0" />
+          <xs:element name="extensionForTypeRef" type="RxMemberInfoRef" minOccurs="0" />
+          <xs:element name="returnTypeRef" type="RxMemberInfoRef" minOccurs="0" />
+          <xs:element name="parameter" type="RxParameterInfo" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        
+        <xs:attribute name="callingConvention" type="xs:string"/>
+        <xs:attribute name="isAbstract" type="xs:boolean"/>
+        <xs:attribute name="isAssembly" type="xs:boolean"/>
+        <xs:attribute name="isFamily" type="xs:boolean"/>
+        <xs:attribute name="isFinal" type="xs:boolean"/>
+        <xs:attribute name="isPrivate" type="xs:boolean"/>
+        <xs:attribute name="isSpecialName" type="xs:boolean"/>
+        <xs:attribute name="isStatic" type="xs:boolean"/>
+        <xs:attribute name="isVirtual" type="xs:boolean"/>
+        <xs:attribute name="isExtension" type="xs:boolean"/>
+        <xs:attribute name="isGenericMethod" type="xs:boolean"/>
+        <xs:attribute name="isGenericMethodDefinition" type="xs:boolean"/>
+        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxEventInfo">
+    <xs:complexContent>
+      <xs:extension base="RxTypeMemberInfo">
+        <xs:sequence>
+          <xs:element name="eventHandlerTypeRef" type="RxMemberInfoRef" minOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="isMulticast" type="xs:boolean"/>
+        <xs:attribute name="isSpecialName" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxPropertyInfo">
+    <xs:complexContent>
+      <xs:extension base="RxTypeMemberInfo">
+        <xs:sequence>
+          <xs:element name="propertyTypeRef" type="RxMemberInfoRef" minOccurs="1" />
+          <xs:element name="indexParameter" type="RxParameterInfo" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="isSpecialName" type="xs:boolean"/>
+        <xs:attribute name="canRead" type="xs:boolean"/>
+        <xs:attribute name="canWrite" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="RxTypeInfo">
+    <xs:complexContent>
+      <xs:extension base="RxMemberInfo">
+        <xs:sequence>
+          <xs:element name="assemblyRef" type="RxMemberInfoRef" minOccurs="1" />
+          <xs:element name="baseTypeRef" type="RxMemberInfoRef" minOccurs="0" />
+          <xs:element name="elementTypeRef" type="RxMemberInfoRef" minOccurs="0" />
+          <xs:element name="moduleRef" type="RxMemberInfoRef" minOccurs="1"/>
+          <xs:element name="nestedTypeRef" minOccurs="0" maxOccurs="unbounded" type="RxMemberInfoRef"/>
+          <xs:element name="underlyingSystemTypeRef" type="RxMemberInfoRef" minOccurs="0" />
+          <xs:element name="event" type="RxEventInfo" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="field" type="RxFieldInfo" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="method" type="RxMethodInfo" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="property" type="RxPropertyInfo" minOccurs="0" maxOccurs="unbounded"/>          
+          <xs:element name="typeParameter" minOccurs="0" maxOccurs="unbounded" type="RxTypeInfoParameter"/>
+        </xs:sequence>
+        <xs:attribute name="assemblyQualifiedName" type="xs:string" />
+        <xs:attribute name="fullName" type="xs:string" />
+        <xs:attribute name="GUID" type="xs:string" />
+        <xs:attribute name="hasElementType" type="xs:boolean" />
+        <xs:attribute name="isAbstract" type="xs:boolean" />
+        <xs:attribute name="isAnsiClass" type="xs:boolean" />
+        <xs:attribute name="isArray" type="xs:boolean" />
+        <xs:attribute name="isAutoClass" type="xs:boolean" />
+        <xs:attribute name="isAutoLayout" type="xs:boolean" />
+        <xs:attribute name="isByRef" type="xs:boolean" />
+        <xs:attribute name="isClass" type="xs:boolean" />
+        <xs:attribute name="isCOMObject" type="xs:boolean" />
+        <xs:attribute name="isContextful" type="xs:boolean" />
+        <xs:attribute name="isEnum" type="xs:boolean" />
+        <xs:attribute name="isExplicitLayout" type="xs:boolean" />
+        <xs:attribute name="isImport" type="xs:boolean" />
+        <xs:attribute name="isInterface" type="xs:boolean" />
+        <xs:attribute name="isLayoutSequential" type="xs:boolean" />
+        <xs:attribute name="isMarshalByRef" type="xs:boolean" />
+        <xs:attribute name="isNested" type="xs:boolean" />
+        <xs:attribute name="isNestedAssembly" type="xs:boolean" />
+        <xs:attribute name="isNestedFamily" type="xs:boolean" />
+        <xs:attribute name="isNestedPrivate" type="xs:boolean" />
+        <xs:attribute name="isNestedPublic" type="xs:boolean" />
+        <xs:attribute name="isNotPublic" type="xs:boolean" />
+        <xs:attribute name="isPointer" type="xs:boolean" />
+        <xs:attribute name="isPrimitive" type="xs:boolean" />
+        <xs:attribute name="isSealed" type="xs:boolean" />
+        <xs:attribute name="isSerializable" type="xs:boolean" />
+        <xs:attribute name="isSpecialName" type="xs:boolean" />
+        <xs:attribute name="isUnicodeClass" type="xs:boolean" />
+        <xs:attribute name="isValueType" type="xs:boolean" />
+        <xs:attribute name="arrayRank" type="xs:int" use="optional" />
+        <xs:attribute name="namespace" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RxParameterInfo">
+    <xs:sequence>
+      <xs:element name="parameterTypeRef" type="RxMemberInfoRef" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="memberRef" type="RxMemberInfoRef" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="defaultValue" type="xs:string"/>
+    <xs:attribute name="isIn" type="xs:boolean" />
+    <xs:attribute name="isLcid" type="xs:boolean" />
+    <xs:attribute name="isOptional" type="xs:boolean" />
+    <xs:attribute name="isOut" type="xs:boolean" />
+    <xs:attribute name="isRetVal" type="xs:string"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="position" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RxTypeInfoParameter">
+    
+  </xs:complexType>
+  
+</xs:schema>

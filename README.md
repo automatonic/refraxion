@@ -1,3 +1,5 @@
+> Deprecated. Concept superceded and fully implemented via http://clariuslabs.github.io/NuDoc/
+
 refraxion
 =========
 
